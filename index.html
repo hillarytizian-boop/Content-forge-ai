@@ -5,50 +5,92 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ContentForge AI Pro</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body{margin:0;font-family:Arial;background:#0a0a0a;color:#fff}
+:root{
+--bg:#0a0a0a;
+--card:#161616;
+--gold:#D4AF37;
+--text:#fff;
+--muted:#aaa;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
+body{background:var(--bg);color:var(--text)}
+
 .container{max-width:1200px;margin:auto;padding:20px}
-.btn{padding:10px 20px;border-radius:6px;border:none;cursor:pointer}
-.gold{background:#D4AF37;color:#000}
-.hidden{display:none}
-.card{background:#161616;padding:20px;border-radius:10px;margin-top:20px}
-input,select{width:100%;padding:10px;margin-top:10px;background:#222;color:#fff;border:1px solid #444}
-video{width:100%;margin-top:15px;border-radius:10px}
-.nav{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #333}
+
+.navbar{display:flex;justify-content:space-between;padding:20px;border-bottom:1px solid #333}
+.logo{font-size:22px;font-weight:bold}
+.text-gold{color:var(--gold)}
+
+.btn{padding:10px 20px;border-radius:6px;border:none;cursor:pointer;font-weight:600}
+.btn-gold{background:var(--gold);color:#000}
+.btn-outline{border:1px solid var(--gold);color:var(--gold);background:none}
+
+.hero{text-align:center;padding:80px 0}
+.hero h1{font-size:40px;margin-bottom:20px}
+.hero p{color:var(--muted);margin-bottom:20px}
+
+.card{background:var(--card);padding:25px;border-radius:10px;margin-top:20px}
+
+.dashboard{display:none;margin-top:40px}
+.sidebar{width:200px;float:left}
 .sidebar button{display:block;width:100%;margin:5px 0}
-.hero{text-align:center;padding:60px}
+
+.main{margin-left:220px}
+
+.hidden{display:none}
+
+input,select{width:100%;padding:12px;margin-top:10px;background:#222;border:1px solid #444;color:#fff}
+
+video{width:100%;margin-top:15px;border-radius:10px}
+
+.whatsapp{
+position:fixed;bottom:20px;right:20px;background:#25d366;
+padding:15px;border-radius:50%;color:#fff;text-decoration:none;
+}
 </style>
 </head>
 
 <body>
 
-<div class="nav">
-<h2>ContentForge <span style="color:#D4AF37">AI Pro</span></h2>
-<button id="loginBtn" class="btn gold">Login</button>
+<!-- NAVBAR -->
+<div class="navbar container">
+<div class="logo">ContentForge <span class="text-gold">AI Pro</span></div>
+<div>
+<button id="loginBtn" class="btn btn-gold">Login</button>
 </div>
-
-<div class="container">
+</div>
 
 <!-- HERO -->
-<div class="hero">
-<h1>Generate Viral Content & Videos</h1>
-<p>AI-powered TikTok, YouTube & Instagram generator</p>
-<button class="btn gold" onclick="openDashboard()">Start Creating</button>
+<div class="hero container">
+<h1>Generate Viral <span class="text-gold">Content & Videos</span></h1>
+<p>Scripts, captions and real videos instantly</p>
+
+<button class="btn btn-gold" onclick="openDashboard()">Start Creating</button>
+
+<a href="https://www.paypal.com/paypalme/kingtizian008" target="_blank">
+<button class="btn btn-outline">Upgrade Pro</button>
+</a>
 </div>
 
-<!-- AUTH MODAL -->
-<div id="authModal" class="hidden card">
+<!-- LOGIN MODAL -->
+<div id="authModal" class="card hidden container">
 <h3 id="authTitle">Login</h3>
+
 <input id="email" placeholder="Email">
 <input id="password" type="password" placeholder="Password">
-<button class="btn gold" onclick="auth()">Submit</button>
-<p onclick="toggleAuth()" style="cursor:pointer">Switch Mode</p>
+
+<button class="btn btn-gold" onclick="auth()">Submit</button>
+
+<p onclick="toggleAuth()" style="cursor:pointer;margin-top:10px">
+Switch to Signup
+</p>
 </div>
 
 <!-- DASHBOARD -->
-<div id="dashboard" class="hidden">
-
-<h3 id="welcome"></h3>
+<div id="dashboard" class="dashboard container">
 
 <div class="sidebar">
 <button onclick="tab('content')">Content</button>
@@ -56,6 +98,8 @@ video{width:100%;margin-top:15px;border-radius:10px}
 <button onclick="tab('share')">Share</button>
 <button onclick="logout()">Logout</button>
 </div>
+
+<div class="main">
 
 <!-- CONTENT -->
 <div id="contentTab" class="card">
@@ -68,7 +112,7 @@ video{width:100%;margin-top:15px;border-radius:10px}
 <option value="youtube">YouTube</option>
 </select>
 
-<button class="btn gold" onclick="genContent()">Generate</button>
+<button class="btn btn-gold" onclick="genContent()">Generate</button>
 
 <p id="contentOut"></p>
 </div>
@@ -79,7 +123,7 @@ video{width:100%;margin-top:15px;border-radius:10px}
 
 <input id="videoTopic" placeholder="Keyword">
 
-<button class="btn gold" onclick="genVideo()">Generate Video</button>
+<button class="btn btn-gold" onclick="genVideo()">Generate Video</button>
 
 <video id="player" controls></video>
 <p id="videoSrc"></p>
@@ -100,13 +144,14 @@ video{width:100%;margin-top:15px;border-radius:10px}
 
 </div>
 
+<!-- WHATSAPP -->
+<a href="https://wa.me/254742251656?text=Hello%20I%20want%20to%20use%20ContentForge%20AI" target="_blank" class="whatsapp">💬</a>
+
 <script>
-
 const apo = "https://content-forge-ai.onrender.com";
-
 let isLogin = true;
 
-/* UI */
+/* LOGIN UI */
 document.getElementById("loginBtn").onclick = ()=>{
 document.getElementById("authModal").classList.toggle("hidden");
 };
@@ -131,7 +176,6 @@ const password = document.getElementById("password").value;
 
 const endpoint = isLogin ? "/api/login" : "/api/signup";
 
-try{
 const res = await fetch(apo + endpoint,{
 method:"POST",
 headers:{"Content-Type":"application/json"},
@@ -147,19 +191,13 @@ startApp();
 }else{
 alert(data.message);
 }
-}catch(e){
-alert("❌ Server not reachable");
-}
 }
 
 /* START */
 function startApp(){
 document.getElementById("authModal").classList.add("hidden");
-document.querySelector(".hero").classList.add("hidden");
-document.getElementById("dashboard").classList.remove("hidden");
-
-const user = JSON.parse(localStorage.getItem("user"));
-document.getElementById("welcome").innerText = "Welcome " + user.email;
+document.getElementById("dashboard").style.display="block";
+document.querySelector(".hero").style.display="none";
 }
 
 /* LOGOUT */
@@ -179,43 +217,43 @@ document.getElementById(t+"Tab").classList.remove("hidden");
 
 /* CONTENT */
 async function genContent(){
-const topic = document.getElementById("topic").value;
-const type = document.getElementById("type").value;
+const topic=document.getElementById("topic").value;
+const type=document.getElementById("type").value;
 
-const res = await fetch(apo + "/api/generate-content",{
+const res=await fetch(apo+"/api/generate-content",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify({topic,type})
 });
 
-const data = await res.json();
-document.getElementById("contentOut").innerText = data.content;
+const data=await res.json();
+document.getElementById("contentOut").innerText=data.content;
 }
 
-/* VIDEO */
+/* VIDEO (PEXELS READY + FALLBACK) */
 async function genVideo(){
-const query = document.getElementById("videoTopic").value;
+const query=document.getElementById("videoTopic").value;
 
-const res = await fetch(apo + "/api/generate-video",{
+const res=await fetch(apo+"/api/generate-video",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify({query})
 });
 
-const data = await res.json();
+const data=await res.json();
 
-document.getElementById("player").src = data.videoUrl;
-document.getElementById("videoSrc").innerText = data.source;
+document.getElementById("player").src=data.videoUrl;
+document.getElementById("videoSrc").innerText=data.source;
 }
 
 /* SHARE */
 function getRef(){
-const user = JSON.parse(localStorage.getItem("user"));
-return window.location.origin + "?ref=" + user.id;
+const user=JSON.parse(localStorage.getItem("user"));
+return window.location.origin+"?ref="+user.id;
 }
 
 function shareWhats(){
-window.open(`https://wa.me/?text=Try this AI tool: ${getRef()}`);
+window.open(`https://wa.me/?text=Use this AI tool: ${getRef()}`);
 }
 
 function shareTele(){
@@ -224,14 +262,13 @@ window.open(`https://t.me/share/url?url=${getRef()}`);
 
 function copyLink(){
 navigator.clipboard.writeText(getRef());
-document.getElementById("shareMsg").innerText = "Copied!";
+document.getElementById("shareMsg").innerText="Copied!";
 }
 
 /* AUTO LOGIN */
 if(localStorage.getItem("user")){
 startApp();
 }
-
 </script>
 
 </body>

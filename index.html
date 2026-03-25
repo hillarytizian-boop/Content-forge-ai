@@ -1,259 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ContentForge AI Pro | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #161616;
-            --gold: #D4AF37;
-            --gold-hover: #F2C94C;
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-        }
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
-        body { background-color:var(--bg-dark); color:var(--text-main); line-height:1.6; }
-        .container{ max-width:1200px; margin:0 auto; padding:0 20px; }
-        .text-gold{ color:var(--gold); }
-        .hidden{ display:none !important; }
-
-        .btn{ padding:10px 20px; border-radius:6px; border:none; cursor:pointer; font-weight:600; transition:0.3s; text-decoration:none; display:inline-block; }
-        .btn-gold{ background:var(--gold); color:#000; }
-        .btn-gold:hover{ background:var(--gold-hover); }
-        .btn-outline{ background:transparent; border:1px solid var(--gold); color:var(--gold); }
-        .btn-outline:hover{ background:rgba(212,175,55,0.1); }
-
-        .navbar{ padding:20px 0; border-bottom:1px solid #333; position:sticky; top:0; background:var(--bg-dark); z-index:100; }
-        .nav-content{ display:flex; justify-content:space-between; align-items:center; }
-        .logo{ font-size:1.5rem; font-weight:700; }
-        .nav-links{ display:flex; gap:15px; align-items:center; }
-
-        .hero{text-align:center; padding:100px 0; background:radial-gradient(circle at center,#1a1a1a 0%,#0a0a0a 100%);}
-        .hero h1{ font-size:3rem; margin-bottom:20px; }
-        .hero p{ color:var(--text-muted); font-size:1.2rem; margin-bottom:30px; max-width:600px; margin-left:auto; margin-right:auto; }
-        .hero-btns{ display:flex; gap:15px; justify-content:center; }
-
-        .section{ padding:60px 0; }
-        .grid-3{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:30px; margin-top:40px; }
-        .card{ background:var(--bg-card); padding:30px; border-radius:12px; border:1px solid #333; }
-        .card h3{ margin-bottom:10px; color:var(--gold); }
-
-        .modal{ position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:1000; }
-        .modal-content{ background:var(--bg-card); padding:40px; border-radius:12px; width:100%; max-width:400px; position:relative; border:1px solid #333; }
-        .close-modal{ position:absolute; top:15px; right:20px; font-size:1.5rem; cursor:pointer; }
-        .form-group{ margin-bottom:20px; }
-        .form-group label{ display:block; margin-bottom:5px; color:var(--text-muted); }
-        .form-group input, .form-group select{ width:100%; padding:12px; background:#222; border:1px solid #444; color:white; border-radius:6px; }
-        .toggle-auth{text-align:center; margin-top:20px; font-size:0.9rem; }
-
-        .dashboard-grid{ display:grid; grid-template-columns:250px 1fr; gap:40px; margin-top:40px; }
-        .sidebar ul{ list-style:none; }
-        .sidebar li{ padding:15px; cursor:pointer; border-bottom:1px solid #222; transition:0.2s; }
-        .sidebar li:hover, .sidebar li.active{ color:var(--gold); background:#1a1a1a; }
-        .pro-status{ margin-top:30px; padding:15px; background:#222; border-radius:8px; }
-        .result-box{ margin-top:20px; background:#000; padding:20px; border-radius:8px; border-left:4px solid var(--gold); }
-        .video-wrapper{ margin-top:15px; background:#000; border-radius:8px; overflow:hidden; }
-        .price-tag{ font-size:2rem; font-weight:700; color:var(--gold); margin:20px 0; }
-
-        .whatsapp-float{ position:fixed; bottom:30px; right:30px; background:#25d366; width:60px; height:60px; border-radius:50%; display:flex; justify-content:center; align-items:center; box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index:999; transition:transform 0.3s; }
-        .whatsapp-float:hover{ transform:scale(1.1); }
-
-        #toast{position:fixed; top:20px; right:20px; padding:15px 20px; border-radius:8px; color:#fff; z-index:2000; display:none; font-weight:600;}
-
-        @media(max-width:768px){ .dashboard-grid{ grid-template-columns:1fr; } .hero h1{ font-size:2rem; } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ContentForge AI Pro</title>
+<style>
+/* --- Retain all your original styles here --- */
+body { background-color: #0a0a0a; color: #fff; font-family: 'Inter', sans-serif; margin:0; padding:0;}
+.container { max-width: 1200px; margin:0 auto; padding:0 20px;}
+.text-gold { color: #D4AF37; }
+.hidden { display:none !important; }
+.btn { padding:10px 20px; border-radius:6px; border:none; cursor:pointer; font-weight:600; transition:0.3s; display:inline-block;}
+.btn-gold { background:#D4AF37; color:#000; }
+.btn-gold:hover { background:#F2C94C; }
+.btn-outline { background:transparent; border:1px solid #D4AF37; color:#D4AF37; }
+.btn-outline:hover { background: rgba(212, 175, 55, 0.1);}
+.navbar { padding:20px 0; border-bottom:1px solid #333; position:sticky; top:0; background:#0a0a0a; z-index:100; }
+.nav-content { display:flex; justify-content:space-between; align-items:center;}
+.hero { text-align:center; padding:100px 0; background:radial-gradient(circle,#1a1a1a,#0a0a0a);}
+.grid-3 { display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:30px; margin-top:40px;}
+.card { background:#161616; padding:30px; border-radius:12px; border:1px solid #333;}
+.modal { position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:1000;}
+.modal-content { background:#161616; padding:40px; border-radius:12px; width:100%; max-width:400px; position:relative; border:1px solid #333;}
+.close-modal { position:absolute; top:15px; right:20px; font-size:1.5rem; cursor:pointer;}
+.form-group { margin-bottom:20px;}
+.form-group label { display:block; margin-bottom:5px; color:#a0a0a0;}
+.form-group input, .form-group select { width:100%; padding:12px; background:#222; border:1px solid #444; color:#fff; border-radius:6px;}
+.toggle-auth { text-align:center; margin-top:20px; font-size:0.9rem;}
+.result-box { margin-top:20px; background:#000; padding:20px; border-radius:8px; border-left:4px solid #D4AF37;}
+.video-wrapper { margin-top:15px; background:#000; border-radius:8px; overflow:hidden;}
+.price-tag { font-size:2rem; font-weight:700; color:#D4AF37; margin:20px 0;}
+.whatsapp-float { position:fixed; bottom:30px; right:30px; background:#25d366; width:60px; height:60px; border-radius:50%; display:flex; justify-content:center; align-items:center; box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index:999; transition:transform 0.3s;}
+.whatsapp-float:hover { transform:scale(1.1);}
+</style>
 </head>
 <body>
 
 <!-- Navbar -->
 <nav class="navbar">
-    <div class="container nav-content">
-        <div class="logo">ContentForge<span class="text-gold">AI Pro</span></div>
-        <div class="nav-links">
-            <a href="#" class="btn btn-outline" id="userDisplay"></a>
-            <button id="loginBtn" class="btn btn-gold">Login</button>
-        </div>
+<div class="container nav-content">
+    <div class="logo">ContentForge<span class="text-gold">AI Pro</span></div>
+    <div class="nav-links">
+        <a href="dashboard.html" class="btn btn-outline">Dashboard</a>
+        <button id="loginBtn" class="btn btn-gold">Login</button>
     </div>
+</div>
 </nav>
 
 <!-- Hero Section -->
 <header class="hero">
-    <div class="container">
-        <h1>Generate Viral <span class="text-gold">Content & Videos</span></h1>
-        <p>The all-in-one AI platform for creators. Scripts, Captions, and Stock Video generation in seconds.</p>
-        <div class="hero-btns">
-            <button onclick="switchTab('contentTab');window.scrollTo(0,0);" class="btn btn-gold">Start Creating</button>
-            <a href="https://www.paypal.com/paypalme/kingtizian008" target="_blank" class="btn btn-outline">Upgrade Pro</a>
-        </div>
+<div class="container">
+    <h1>Generate Viral <span class="text-gold">Content & Videos</span></h1>
+    <p>The all-in-one AI platform for creators. Scripts, Captions, and Stock Video generation in seconds.</p>
+    <div class="hero-btns">
+        <button id="startBtn" class="btn btn-gold">Start Creating</button>
+        <a href="https://www.paypal.com/paypalme/kingtizian008" target="_blank" class="btn btn-outline">Upgrade Pro</a>
+        <button id="shareBtn" class="btn btn-outline">Share & Get 2 Free</button>
     </div>
+</div>
 </header>
 
 <!-- Features -->
-<section class="features section">
-    <div class="container">
-        <h2>Why ContentForge?</h2>
-        <div class="grid-3">
-            <div class="card">
-                <h3>📝 AI Scripts</h3>
-                <p>Generate TikTok scripts and YouTube descriptions instantly.</p>
-            </div>
-            <div class="card">
-                <h3>🎬 Video Search</h3>
-                <p>Find high-quality stock footage using AI keywords.</p>
-            </div>
-            <div class="card">
-                <h3>🔒 Secure Login</h3>
-                <p>Your history and preferences are saved securely.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Dashboard Section -->
-<div class="container section">
-    <div class="dashboard-grid">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <h3>Menu</h3>
-            <ul>
-                <li class="active" onclick="switchTab('contentTab')">📝 Content Gen</li>
-                <li onclick="switchTab('videoTab')">🎬 Video Gen</li>
-                <li onclick="switchTab('proTab')">💎 Pro Upgrade</li>
-            </ul>
-            <div class="pro-status">
-                <p>Status: <span id="planStatus" class="text-gold">Free Plan</span></p>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Content Generator -->
-            <div id="contentTab" class="tab-content">
-                <h2>AI Content Generator</h2>
-                <div class="card">
-                    <div class="form-group">
-                        <label>Topic</label>
-                        <input type="text" id="contentTopic" placeholder="e.g., Healthy Breakfast Recipes">
-                    </div>
-                    <div class="form-group">
-                        <label>Type</label>
-                        <select id="contentType">
-                            <option value="tiktok">TikTok Script</option>
-                            <option value="instagram">Instagram Caption</option>
-                            <option value="youtube">YouTube Description</option>
-                        </select>
-                    </div>
-                    <button id="genContentBtn" class="btn btn-gold">Generate Content</button>
-                    <div id="contentResult" class="result-box hidden">
-                        <h4>Generated Result:</h4>
-                        <p id="contentOutput"></p>
-                        <button class="btn btn-outline btn-sm" onclick="copyText()">Copy</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video Generator -->
-            <div id="videoTab" class="tab-content hidden">
-                <h2>AI Video Search</h2>
-                <div class="card">
-                    <div class="form-group">
-                        <label>Search Keyword</label>
-                        <input type="text" id="videoTopic" placeholder="e.g., Nature, Technology, Gym">
-                    </div>
-                    <button id="genVideoBtn" class="btn btn-gold">Find Video</button>
-                    <div id="videoResult" class="result-box hidden">
-                        <h4>Video Result:</h4>
-                        <div class="video-wrapper">
-                            <video id="videoPlayer" controls width="100%">
-                                <source src="" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <p id="videoSource" style="font-size:0.8rem; color:#666; margin-top:10px;"></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pro Upgrade -->
-            <div id="proTab" class="tab-content hidden">
-                <h2>Upgrade to Pro</h2>
-                <div class="card" style="text-align:center; border:1px solid var(--gold);">
-                    <h3 class="text-gold">Lifetime Pro Access</h3>
-                    <p>Get unlimited generations and premium support.</p>
-                    <div class="price-tag">$19.99</div>
-                    <a href="https://www.paypal.com/paypalme/kingtizian008" target="_blank" class="btn btn-gold" style="display:inline-block; margin-top:20px;">Pay with PayPal</a>
-                    <p style="margin-top:15px; font-size:0.8rem; color:#aaa;">Secure payment via PayPal</p>
-                    <button id="shareAppBtn" class="btn btn-outline" style="margin-top:20px;">Share this App & Get 2 Free Uses</button>
-                </div>
-            </div>
-        </main>
-    </div>
+<section class="features">
+<div class="container">
+<h2>Why ContentForge?</h2>
+<div class="grid-3">
+    <div class="card"><h3>📝 AI Scripts</h3><p>Generate TikTok scripts, Instagram captions, and YouTube descriptions instantly.</p></div>
+    <div class="card"><h3>🎬 Video Search</h3><p>Find high-quality 4K stock footage using AI keywords for YouTube, Instagram, TikTok.</p></div>
+    <div class="card"><h3>🔒 Secure Login</h3><p>Your history and preferences are saved securely.</p></div>
 </div>
+</div>
+</section>
 
 <!-- Auth Modal -->
 <div id="authModal" class="modal hidden">
-    <div class="modal-content">
-        <span class="close-modal" id="closeModal">&times;</span>
-        <h2 id="modalTitle">Login</h2>
-        <form id="authForm">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="password" required>
-            </div>
-            <button type="submit" class="btn btn-gold" style="width:100%">Submit</button>
-        </form>
-        <p class="toggle-auth">
-            <span id="toggleText">New here? <span class="text-gold" style="cursor:pointer" onclick="toggleAuth()">Create account</span></span>
-        </p>
-    </div>
+<div class="modal-content">
+    <span class="close-modal" id="closeModal">&times;</span>
+    <h2 id="modalTitle">Login</h2>
+    <form id="authForm">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" required>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width:100%">Submit</button>
+    </form>
+    <p class="toggle-auth">
+        <span id="toggleText">New here? <span class="text-gold" style="cursor:pointer" onclick="toggleAuth()">Create account</span></span>
+    </p>
+</div>
 </div>
 
-<!-- WhatsApp Button -->
+<!-- Dashboard / Generator Section -->
+<div class="container section">
+<div class="dashboard-grid">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h3>Menu</h3>
+        <ul>
+            <li class="active" onclick="switchTab('content')">📝 Content Gen</li>
+            <li onclick="switchTab('video')">🎬 Video Gen</li>
+            <li onclick="switchTab('pro')">💎 Pro Upgrade</li>
+        </ul>
+        <div class="pro-status">
+            <p>Status: <span id="planStatus" class="text-gold">Free Plan</span></p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Content Generator Tab -->
+        <div id="contentTab" class="tab-content">
+            <h2>AI Content Generator</h2>
+            <div class="card">
+                <div class="form-group">
+                    <label>Topic</label>
+                    <input type="text" id="contentTopic" placeholder="e.g., Healthy Breakfast Recipes">
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <select id="contentType">
+                        <option value="tiktok">TikTok Script</option>
+                        <option value="instagram">Instagram Caption</option>
+                        <option value="youtube">YouTube Description</option>
+                    </select>
+                </div>
+                <button id="genContentBtn" class="btn btn-gold">Generate Content</button>
+                <div id="contentResult" class="result-box hidden">
+                    <h4>Generated Result:</h4>
+                    <p id="contentOutput"></p>
+                    <button class="btn btn-outline" onclick="copyText()">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Generator Tab -->
+        <div id="videoTab" class="tab-content hidden">
+            <h2>AI Video Search</h2>
+            <div class="card">
+                <div class="form-group">
+                    <label>Search Keyword</label>
+                    <input type="text" id="videoTopic" placeholder="e.g., Nature, Technology, Gym">
+                </div>
+                <button id="genVideoBtn" class="btn btn-gold">Find Video</button>
+                <div id="videoResult" class="result-box hidden">
+                    <h4>Video Result:</h4>
+                    <div class="video-wrapper">
+                        <video id="videoPlayer" controls width="100%"></video>
+                    </div>
+                    <p id="videoSource" style="font-size:0.8rem; color:#666; margin-top:10px;"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pro Upgrade Tab -->
+        <div id="proTab" class="tab-content hidden">
+            <h2>Upgrade to Pro</h2>
+            <div class="card" style="text-align:center; border:1px solid #D4AF37;">
+                <h3 class="text-gold">Lifetime Pro Access</h3>
+                <p>Get unlimited generations and premium support.</p>
+                <div class="price-tag">$19.99</div>
+                <a href="https://www.paypal.com/paypalme/kingtizian008" target="_blank" class="btn btn-gold" style="display:inline-block; margin-top:20px;">Pay with PayPal</a>
+                <p style="margin-top:15px; font-size:0.8rem; color:#aaa;">Secure payment via PayPal</p>
+            </div>
+        </div>
+    </main>
+</div>
+</div>
+
+<!-- WhatsApp Floating Button -->
 <a href="https://wa.me/254742251656?text=Hello%20I%20want%20to%20use%20ContentForge%20AI" target="_blank" class="whatsapp-float">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
         <path d="M17.472 14.382C17.119 14.205 15.396 13.353 15.072 13.234C14.749 13.116 14.511 13.057 14.273 13.412C14.035 13.767 13.356 14.564 13.148 14.802C12.939 15.04 12.731 15.069 12.378 14.892C12.025 14.715 10.895 14.343 9.555 13.149C8.494 12.203 7.778 11.036 7.57 10.679C7.361 10.322 7.548 10.129 7.725 9.952C7.884 9.793 8.075 9.544 8.252 9.337C8.429 9.13 8.488 8.982 8.606 8.745C8.724 8.508 8.665 8.301 8.576 8.124C8.488 7.947 7.778 6.196 7.484 5.491C7.196 4.806 6.906 4.895 6.729 4.895C6.57 4.895 6.392 4.895 6.215 4.895C6.038 4.895 5.744 4.964 5.508 5.222C5.272 5.48 4.592 6.116 4.592 7.409C4.592 8.702 5.537 9.948 5.675 10.135C5.813 10.322 7.57 13.045 10.265 14.21C10.924 14.495 11.465 14.673 11.918 14.818C12.663 15.056 13.352 15.023 13.888 14.943C14.494 14.853 15.752 14.177 16.014 13.442C16.276 12.707 16.276 12.09 16.197 11.952C16.118 11.814 15.941 11.755 15.588 11.578V14.382ZM12.007 2C6.484 2 2 6.484 2 12.007C2 13.767 2.454 15.42 3.265 16.865L2.05 21.315L6.606 20.118C8.006 20.88 9.606 21.315 11.315 21.315C16.838 21.315 21.322 16.831 21.322 11.308C21.322 5.785 16.838 2 12.007 2Z"/>
     </svg>
 </a>
 
-<!-- Toast Notification -->
-<div id="toast" class="hidden"></div>
-
 <script>
-/* Constants */
-const apo = "https://content-forge-ai.onrender.com";
+// --- Frontend JS: Login, Auth, Dashboard Tabs, Content & Video Generation, Share + Referral ---
+const apo = "https://content-forge-ai.onrender.com"; // Render backend
 
-/* Auth Logic */
-const authModal=document.getElementById('authModal');
-const loginBtn=document.getElementById('loginBtn');
-const closeModal=document.getElementById('closeModal');
-const authForm=document.getElementById('authForm');
-const modalTitle=document.getElementById('modalTitle');
-const toggleText=document.getElementById('toggleText');
-let isLogin=true;
+const authModal = document.getElementById('authModal');
+const loginBtn = document.getElementById('loginBtn');
+const closeModal = document.getElementById('closeModal');
+const authForm = document.getElementById('authForm');
+const modalTitle = document.getElementById('modalTitle');
+const toggleText = document.getElementById('toggleText');
 
+let isLogin = true;
+
+// Check Auth
 function checkAuth(){
-    const user=JSON.parse(localStorage.getItem('cf_user'));
-    if(user){
-        if(window.location.pathname.includes('dashboard.html') || true){
-            document.getElementById('userDisplay').innerText=`Hello, ${user.email.split('@')[0]}`;
-            if(user.isPro){ document.getElementById('planStatus').innerText="Pro Member"; document.getElementById('planStatus').style.color="#00c851"; }
-        }
+    const user = JSON.parse(localStorage.getItem('cf_user')||'{}');
+    if(user.email && window.location.pathname.includes('dashboard.html')){
+        document.getElementById('planStatus').innerText = user.isPro?'Pro Member':'Free Plan';
+        document.getElementById('userDisplay')?.innerText = `Hello, ${user.email.split('@')[0]}`;
+    } else if(window.location.pathname.includes('dashboard.html')){
+        window.location.href='index.html';
     }
 }
-checkAuth();
 
-/* Modal */
-if(loginBtn){loginBtn.addEventListener('click',()=>{ isLogin=true; updateModal(); authModal.classList.remove('hidden'); }); }
-if(closeModal){closeModal.addEventListener('click',()=>authModal.classList.add('hidden')); }
-window.toggleAuth=()=>{ isLogin=!isLogin; updateModal(); };
-function updateModal(){ modalTitle.innerText=isLogin?'Login':'Sign Up'; toggleText.innerHTML=isLogin?`New here? <span class="text-gold" style="cursor:pointer" onclick="toggleAuth()">Create account</span>`:`Already have an account? <span class="text-gold" style="cursor:pointer" onclick="toggleAuth()">Login</span>`; }
+// Modal
+loginBtn?.addEventListener('click', ()=>{
+    isLogin=true; updateModal();
+    authModal.classList.remove('hidden');
+});
+closeModal?.addEventListener('click', ()=>authModal.classList.add('hidden'));
 
-/* Auth Submit */
-if(authForm){ authForm.addEventListener('submit',async e=>{ e.preventDefault(); const email=document.getElementById('email
+function updateModal(){
+    modalTitle.innerText=isLogin?'Login':'Sign Up';
+    toggleText.innerHTML=isLogin?`New here? <span class="text-gold" style="cursor:pointer" onclick="toggleAuth()">Create account</span>`:`Already have an account? <span class="text-gold" style="cursor:pointer" onclick="toggleAuth()">Login</span>`;
+}
+window.toggleAuth=()=>{isLogin=!isLogin; updateModal();}
+
+// Auth Form Submit
+authForm?.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const email=document.getElementById('email').value;
+    const password=document.getElementById('password').value;
+    const referralId = localStorage.getItem('referralId') || '';
+    const endpoint=isLogin?'/api/login':'/api/signup';
+    try{
+        const res=await fetch(`${apo}${endpoint}`,{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({email,password,referralId})
+        });
+        const data=await res.json();
+        if(res.ok){
+            localStorage.setItem('cf_user',JSON.stringify(data.user));
+            alert('✅ Success!');
+            authModal.classList.add('hidden');
+            window.location.href='dashboard.html';
+        }else alert(data.message||'Error occurred');
+    }catch(err){alert('Server error. Is backend running?');}
+});
+
+// Logout
+document.getElementById('logoutBtn')?.addEventListener('click',()=>{
+    localStorage.removeItem('cf_user');
+    window.location.href='index.html';
+});
+
+// Tabs
+function switchTab(tabName){
+    document.querySelectorAll('.tab-content').forEach(el=>el.classList.add('hidden'));
+    document.getElementById(tabName+'Tab').classList.remove('hidden');
+}
+
+// Content Generation
+document.getElementById('genContentBtn')?.addEventListener('click',async()=>{
+    const topic=document.getElementById('contentTopic').value;
+    const type=document.getElementById('contentType').value;
+    const btn=document.getElementById('genContentBtn');
+    const outputBox=document.getElementById('contentResult');
+    const outputText=document.getElementById('contentOutput');
+    if(!topic) return alert('Please enter a topic');
+    btn.innerHTML='Generating...'; btn.disabled=true;
+    try{
+        const res=await fetch(`${apo}/api/generate-content`,{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({topic,type})
+        });
+        const data=await res.json();
+        outputText.innerText=data.content;
+        outputBox.classList.remove('hidden');
+    }catch(e){alert('Error generating content');}
+    finally{btn.innerHTML='Generate Content'; btn.disabled=false;}
+});
+
+// Video Generation
+document.getElementById('genVideoBtn')?.addEventListener('click',async()=>{
+    const topic=document.getElementById('videoTopic').value;
+    const btn=document.getElementById('genVideoBtn');
+    const resultBox=document.getElementById('videoResult');
+    const videoPlayer=document.getElementById('videoPlayer');
+    const sourceText=document.getElementById('videoSource');
+    if(!topic) return alert('Please enter a keyword');
+    btn.innerHTML='Searching...'; btn.disabled=true;
+    try{
+        const res=await fetch(`${apo}/api/generate-video`,{
+            method:'POST',
+            headers:{'Content

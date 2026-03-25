@@ -7,35 +7,42 @@
 
 <style>
 body{margin:0;font-family:Arial;background:#0a0a0a;color:#fff}
-.container{max-width:1100px;margin:auto;padding:20px}
-.btn{padding:10px 20px;border:none;border-radius:6px;cursor:pointer}
+.container{max-width:1200px;margin:auto;padding:20px}
+.btn{padding:10px 20px;border-radius:6px;border:none;cursor:pointer}
 .gold{background:#D4AF37;color:#000}
 .hidden{display:none}
 .card{background:#161616;padding:20px;border-radius:10px;margin-top:20px}
 input,select{width:100%;padding:10px;margin-top:10px;background:#222;color:#fff;border:1px solid #444}
 video{width:100%;margin-top:15px;border-radius:10px}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #333}
 .sidebar button{display:block;width:100%;margin:5px 0}
+.hero{text-align:center;padding:60px}
 </style>
 </head>
 
 <body>
 
+<div class="nav">
+<h2>ContentForge <span style="color:#D4AF37">AI Pro</span></h2>
+<button id="loginBtn" class="btn gold">Login</button>
+</div>
+
 <div class="container">
 
-<h1>ContentForge <span style="color:#D4AF37">AI Pro</span></h1>
+<!-- HERO -->
+<div class="hero">
+<h1>Generate Viral Content & Videos</h1>
+<p>AI-powered TikTok, YouTube & Instagram generator</p>
+<button class="btn gold" onclick="openDashboard()">Start Creating</button>
+</div>
 
-<!-- AUTH -->
-<div id="authBox" class="card">
+<!-- AUTH MODAL -->
+<div id="authModal" class="hidden card">
 <h3 id="authTitle">Login</h3>
-
 <input id="email" placeholder="Email">
 <input id="password" type="password" placeholder="Password">
-
 <button class="btn gold" onclick="auth()">Submit</button>
-
-<p onclick="toggleAuth()" style="cursor:pointer;margin-top:10px">
-Switch to Signup
-</p>
+<p onclick="toggleAuth()" style="cursor:pointer">Switch Mode</p>
 </div>
 
 <!-- DASHBOARD -->
@@ -44,15 +51,15 @@ Switch to Signup
 <h3 id="welcome"></h3>
 
 <div class="sidebar">
-<button onclick="showTab('content')">Content</button>
-<button onclick="showTab('video')">Video</button>
-<button onclick="showTab('share')">Share</button>
+<button onclick="tab('content')">Content</button>
+<button onclick="tab('video')">Video</button>
+<button onclick="tab('share')">Share</button>
 <button onclick="logout()">Logout</button>
 </div>
 
 <!-- CONTENT -->
-<div id="content" class="card">
-<h3>Generate Content</h3>
+<div id="contentTab" class="card">
+<h3>Content Generator</h3>
 
 <input id="topic" placeholder="Topic">
 <select id="type">
@@ -67,8 +74,8 @@ Switch to Signup
 </div>
 
 <!-- VIDEO -->
-<div id="video" class="card hidden">
-<h3>Generate Video</h3>
+<div id="videoTab" class="card hidden">
+<h3>Video Generator</h3>
 
 <input id="videoTopic" placeholder="Keyword">
 
@@ -79,7 +86,7 @@ Switch to Signup
 </div>
 
 <!-- SHARE -->
-<div id="share" class="card hidden">
+<div id="shareTab" class="card hidden">
 <h3>Share & Earn</h3>
 
 <button onclick="shareWhats()">WhatsApp</button>
@@ -99,19 +106,33 @@ const apo = "https://content-forge-ai.onrender.com";
 
 let isLogin = true;
 
+/* UI */
+document.getElementById("loginBtn").onclick = ()=>{
+document.getElementById("authModal").classList.toggle("hidden");
+};
+
+function openDashboard(){
+if(localStorage.getItem("user")){
+startApp();
+}else{
+document.getElementById("authModal").classList.remove("hidden");
+}
+}
+
 /* AUTH */
 function toggleAuth(){
 isLogin = !isLogin;
-document.getElementById('authTitle').innerText = isLogin ? "Login" : "Signup";
+document.getElementById("authTitle").innerText = isLogin ? "Login" : "Signup";
 }
 
 async function auth(){
-const email = document.getElementById('email').value;
-const password = document.getElementById('password').value;
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
 
-const url = isLogin ? "/api/login" : "/api/signup";
+const endpoint = isLogin ? "/api/login" : "/api/signup";
 
-const res = await fetch(apo + url,{
+try{
+const res = await fetch(apo + endpoint,{
 method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify({email,password})
@@ -121,20 +142,24 @@ const data = await res.json();
 
 if(res.ok){
 localStorage.setItem("user",JSON.stringify(data.user));
-startApp();
 alert("✅ Success");
+startApp();
 }else{
 alert(data.message);
 }
+}catch(e){
+alert("❌ Server not reachable");
+}
 }
 
-/* START APP */
+/* START */
 function startApp(){
-document.getElementById("authBox").classList.add("hidden");
+document.getElementById("authModal").classList.add("hidden");
+document.querySelector(".hero").classList.add("hidden");
 document.getElementById("dashboard").classList.remove("hidden");
 
 const user = JSON.parse(localStorage.getItem("user"));
-document.getElementById("welcome").innerText = "Hello " + user.email;
+document.getElementById("welcome").innerText = "Welcome " + user.email;
 }
 
 /* LOGOUT */
@@ -144,12 +169,12 @@ location.reload();
 }
 
 /* TABS */
-function showTab(tab){
-document.getElementById("content").classList.add("hidden");
-document.getElementById("video").classList.add("hidden");
-document.getElementById("share").classList.add("hidden");
+function tab(t){
+document.getElementById("contentTab").classList.add("hidden");
+document.getElementById("videoTab").classList.add("hidden");
+document.getElementById("shareTab").classList.add("hidden");
 
-document.getElementById(tab).classList.remove("hidden");
+document.getElementById(t+"Tab").classList.remove("hidden");
 }
 
 /* CONTENT */
@@ -164,7 +189,6 @@ body:JSON.stringify({topic,type})
 });
 
 const data = await res.json();
-
 document.getElementById("contentOut").innerText = data.content;
 }
 
@@ -191,7 +215,7 @@ return window.location.origin + "?ref=" + user.id;
 }
 
 function shareWhats(){
-window.open(`https://wa.me/?text=Use this AI tool: ${getRef()}`);
+window.open(`https://wa.me/?text=Try this AI tool: ${getRef()}`);
 }
 
 function shareTele(){
@@ -200,7 +224,7 @@ window.open(`https://t.me/share/url?url=${getRef()}`);
 
 function copyLink(){
 navigator.clipboard.writeText(getRef());
-document.getElementById("shareMsg").innerText = "Link copied!";
+document.getElementById("shareMsg").innerText = "Copied!";
 }
 
 /* AUTO LOGIN */

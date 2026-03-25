@@ -41,8 +41,9 @@ app.post('/api/signup', (req, res) => {
     const newUser = {
         id: Date.now(),
         email,
-        password, // For production: hash passwords
-        isPro: false
+        password, // In production, hash this!
+        isPro: false,
+        freeCredits: 0
     };
 
     saveUser(newUser);
@@ -62,28 +63,27 @@ app.post('/api/login', (req, res) => {
     res.json({ message: 'Login successful', user });
 });
 
-// 3. Content Generator (Fallback Logic)
+// 3. Content Generator (Fallback)
 app.post('/api/generate-content', (req, res) => {
     const { topic, type } = req.body;
     let content = "";
 
-    // Simple template logic for instant results
     if (type === 'tiktok') {
-        content = `🎥 HOOK: Stop scrolling if you love ${topic}!\n\n💡 Here are 3 secrets about ${topic}:\n1. It changes everything.\n2. You need to try this today.\n3. The results are insane.\n\n👇 Follow for more ${topic} tips! #${topic.replace(/\s/g, '')} #viral`;
+        content = `🎥 HOOK: Stop scrolling if you love ${topic}!\n\n💡 Did you know these 3 secrets about ${topic}?\n1. It changes everything.\n2. You need to try this today.\n3. The results are insane.\n\n👇 CTA: Follow for more ${topic} tips! #${topic.replace(/\s/g, '')} #viral`;
     } else if (type === 'instagram') {
-        content = `✨ Obsessed with ${topic}! Swipe to see the details. \n\n#${topic.replace(/\s/g, '')} #inspiration #lifestyle`;
+        content = `✨ Obsessed with ${topic} lately! \n\nIt's been such a journey exploring this. Swipe to see the details. 👉\n\n#${topic.replace(/\s/g, '')} #lifestyle #inspiration`;
     } else if (type === 'youtube') {
-        content = `In this video, we dive deep into ${topic}.\n\nTimestamps:\n0:00 Intro\n1:30 Why ${topic} matters\n5:00 The Secret Revealed\n\nDon't forget to LIKE and SUBSCRIBE!`;
+        content = `In this video, we dive deep into ${topic}. \n\nTimestamps:\n0:00 Intro\n1:30 Why ${topic} matters\n5:00 The Secret Revealed\n\nDon't forget to LIKE and SUBSCRIBE!`;
     }
 
     res.json({ content });
 });
 
-// 4. Video Generator (Fallback & Pexels API)
-app.post('/api/generate-video', async (req, res) => {
+// 4. Video Generator (Fallback 4K / Realistic)
+app.post('/api/generate-video', (req, res) => {
     const { query } = req.body;
 
-    // Robust fallback videos
+    // FALLBACK VIDEOS (Guaranteed to work)
     const fallbacks = {
         'nature': 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
         'technology': 'https://assets.mixkit.co/videos/preview/mixkit-man-working-on-his-laptop-308-large.mp4',
@@ -99,16 +99,25 @@ app.post('/api/generate-video', async (req, res) => {
     else if (lowerQuery.includes('tech') || lowerQuery.includes('computer')) { videoUrl = fallbacks['technology']; source = "Mixkit Tech"; }
     else if (lowerQuery.includes('gym') || lowerQuery.includes('sport')) { videoUrl = fallbacks['gym']; source = "Mixkit Gym"; }
 
-    // NOTE: For real 4K AI video generation, integrate with a service like Pexels, Pixabay, or an AI video generator API.
-    // Current implementation guarantees working high-quality fallback videos.
-
     res.json({ videoUrl, source });
+});
+
+// 5. Share Bonus Route
+app.post('/api/grant-share-bonus', (req,res)=>{
+    const { userId } = req.body;
+    const users = getUsers();
+    const user = users.find(u => u.id === userId);
+
+    if(!user) return res.status(404).json({ success:false, message:'User not found' });
+
+    user.freeCredits = (user.freeCredits || 0) + 2;
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+    res.json({ success:true, message:'2 free generations added' });
 });
 
 // Start Server
 app.listen(PORT, () => {
     console.log(`🚀 ContentForge AI Server running on port ${PORT}`);
-    // Initialize users file if not exists
     if (!fs.existsSync(USERS_FILE)) {
         fs.writeFileSync(USERS_FILE, '[]');
     }

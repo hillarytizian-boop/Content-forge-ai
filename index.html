@@ -347,7 +347,7 @@ body {
             btn.disabled = true;
 
             try {
-                const apo = "https://content-forge-ai.onrender.com";
+                const res = await fetch('https://content-forge-ai.onrender.com/api/generate-content', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ topic, type })
@@ -378,7 +378,7 @@ body {
             btn.disabled = true;
 
             try {
-                const apo = "https://content-forge-ai.onrender.com";
+                const res = await fetch('https://content-forge-ai.onrender.com/api/generate-video', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ query: topic })
@@ -411,7 +411,9 @@ body {
 
               <script>
                               /* FILE: frontend/script.js */
-const API_URL = 'http://localhost:3000/api';
+// CRITICAL: Use the deployed Render URL for all API calls
+const apo = "https://content-forge-ai.onrender.com";
+
 const authModal = document.getElementById('authModal');
 const loginBtn = document.getElementById('loginBtn');
 const closeModal = document.getElementById('closeModal');
@@ -477,7 +479,7 @@ if(authForm) {
         const endpoint = isLogin ? '/login' : '/signup';
 
         try {
-            const res = await fetch(`${API_URL}${endpoint}`, {
+            const res = await fetch(`${apo}${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
@@ -517,7 +519,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const USERS_FILE = path.join(__dirname, 'users.json');
 
 // Middleware
@@ -619,7 +621,7 @@ app.post('/api/generate-video', async (req, res) => {
 
 // Start Server
 app.listen(PORT, () => {
-    console.log(`🚀 ContentForge AI Server running at http://localhost:${PORT}`);
+    console.log(`🚀 ContentForge AI Server running on port ${PORT}`);
     // Initialize users file if not exists
     if (!fs.existsSync(USERS_FILE)) {
         fs.writeFileSync(USERS_FILE, '[]');
